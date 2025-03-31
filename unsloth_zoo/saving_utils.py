@@ -295,6 +295,17 @@ def create_lora_statistics(model, merge_into_original = False, return_state_dict
     print(lora_A_count)
     print(lora_B_count)
     print(scaling_count)
+    missing = []
+    for name, module in inner_model.named_modules():
+        if name.endswith(".base_layer"):
+            base_key = name[:-len(".base_layer")]
+            # Check if this base_key exists in the lora_weights dict
+            if base_key not in lora_weights or lora_weights[base_key].lora_A is None:
+                missing.append(base_key)
+    if missing:
+        print("Modules missing LoRA wrappers:", missing)
+
+    
     assert(module_count == lora_A_count == lora_B_count == scaling_count)
 
     # Also return state_dict if needed
