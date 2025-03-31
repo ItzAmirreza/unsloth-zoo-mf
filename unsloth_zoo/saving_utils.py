@@ -290,6 +290,11 @@ def create_lora_statistics(model, merge_into_original = False, return_state_dict
             remove_keys.add(name)
         pass
     pass
+    print("Counts:")
+    print(module_count)
+    print(lora_A_count)
+    print(lora_B_count)
+    print(scaling_count)
     assert(module_count == lora_A_count == lora_B_count == scaling_count)
 
     # Also return state_dict if needed
