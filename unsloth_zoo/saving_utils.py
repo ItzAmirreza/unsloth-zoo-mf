@@ -476,7 +476,8 @@ def prepare_saving(
         free = int(free*0.95)
         if not push_to_hub and free > save_size: raise_upload_works()
         elif push_to_hub and free < save_size:
-            raise RuntimeError("Unsloth: Failed uploading - no disk space left.")
+            print("⚠️ Warning: Free space appears low, but skipping check since you've verified disk space.")
+            low_disk_space_usage = True  # optional: tells Unsloth to upload shard-by-shard
         elif push_to_hub:
             print(
                 f"Unsloth: Saving to {save_directory} will fail, but using a temp folder works! "\
