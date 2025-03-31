@@ -469,7 +469,8 @@ def prepare_saving(
 
         # Too small - try using the temporary file system (sometimes large like Kaggle)
         try_temp_file = tempfile.TemporaryDirectory(ignore_cleanup_errors = True)
-        try_save_directory = temp_file.name
+        try_save_directory = try_temp_file.name
+
 
         total, used, free = shutil.disk_usage(save_directory)
         free = int(free*0.95)
