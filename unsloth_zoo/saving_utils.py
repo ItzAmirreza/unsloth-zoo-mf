@@ -196,6 +196,7 @@ pass
 
 def assert_same_keys(model, new_state_dict):
     # All Unsloth Zoo code licensed under LGPLv3
+    
     inner_model = model.base_model.model if hasattr(model, "base_model") else model
     original_keys = inner_model.state_dict().keys()
     all_original_keys = set()
@@ -213,7 +214,11 @@ def assert_same_keys(model, new_state_dict):
         all_original_keys.add(x)
     pass
     difference = all_original_keys ^ set(new_state_dict)
+    
     if len(difference) != 0:
+        print("Original keys (processed):", all_original_keys)
+        print("New state_dict keys:", set(new_state_dict))
+        print("Difference:", difference)
         raise RuntimeError(f"Unsloth: Extracted keys = {difference} do not match!")
     pass
 pass
